@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 export const Register = () => {
   const apiURL = "http://localhost:3001/";
@@ -18,7 +17,6 @@ export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [errMsg, setErrMsg] = useState("");
   const [loader, setLoader] = useState(false);
   async function handleRegister(e) {
     setLoader(true);
@@ -40,7 +38,7 @@ export const Register = () => {
     if (data.status === "ok") {
       navigate("/");
     } else {
-      setErrMsg(data.message);
+      alert(data.message);
     }
   }
   const theme = createTheme();
@@ -116,14 +114,14 @@ export const Register = () => {
               sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
-          </Box>
-          <Grid container>
+            <Grid container>
             <Grid item>
               <Link href='/' variant='body2'>
                 {"Log in"}
               </Link>
             </Grid>
           </Grid>
+          </Box>
         </Box>
       </Grid>
     </ThemeProvider>

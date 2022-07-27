@@ -6,7 +6,7 @@ export const GLogin = () => {
   const postSubscriptions = async (data, userDetails) => {
     try {
       var obj = { refresh_token: data.refresh_token, email: userDetails.email };
-      const req = await fetch("http://localhost:3001/addSubscriptions", {
+      const req = await fetch("http://localhost:3001/addSubscriptions", {// eslint-disable-line
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export const GLogin = () => {
         },
         body: JSON.stringify(obj),
       });
-      console.log(req);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

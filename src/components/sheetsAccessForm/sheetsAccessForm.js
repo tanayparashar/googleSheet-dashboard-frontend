@@ -5,9 +5,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useNavigate } from "react-router-dom";
+import { Loader } from "../utility/loader";
 
 export const SheetsAccessForm=()=>{
+    const navigate=useNavigate();
     let  {email,access_token } = useParams();
+    const [loader, setLoader] = useState(false);
     const [sheets,setSheets]=useState([]);
     const [selectedSheet,setSelectedSheet]=useState("");
     const [pages,setPages]=useState([]);
@@ -15,8 +19,9 @@ export const SheetsAccessForm=()=>{
     const [sheetName,setSheetName]=useState("");
     const addToDashboard=async ()=>{
         var obj={email:email, spreasheetName:sheetName, spreadsheetID:selectedSheet, TabName:selectedPage}; 
+        setLoader(true);
         try {
-            const req = await fetch("http://localhost:3001/addSpreadsheets", {
+            const req = await fetch("http://localhost:3001/addSpreadsheets", {// eslint-disable-line
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -24,13 +29,16 @@ export const SheetsAccessForm=()=>{
             },
             body: JSON.stringify(obj),
             });
-            console.log(req);
+            navigate("/dashboard")
+            setLoader(false);
         } 
         catch (err) {
+            setLoader(false);
             console.log(err);
         }
     }
     const requestGoogleSheets = async()=>{
+        setLoader(true);
         var options = {
             'contentType': 'application/json',
             'method'     : 'get',
@@ -40,8 +48,10 @@ export const SheetsAccessForm=()=>{
         var res=await fetch("https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.spreadsheet'",options);
         var data=await res.json();
         setSheets(data.files);
+        setLoader(false);
     }
     const requestPages=async()=>{
+        setLoader(true);
         var options = {
             'contentType': 'application/json',
             'method'     : 'get',
@@ -51,12 +61,13 @@ export const SheetsAccessForm=()=>{
         var res=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${selectedSheet}?includeGridData=false`,options);
         var data=await res.json();
         var pagesArray=[];
-        data?.sheets.map((ele)=>{
+        data?.sheets.map((ele)=>{// eslint-disable-line
             pagesArray.push(ele.properties.title)
         })
         setPages(pagesArray); 
         setSelectedPage("");
         setSheetName(data.properties.title);
+        setLoader(false);
     }
     const handleSheetChange=async(e)=>{
         setSelectedSheet(e.target.value);
@@ -64,10 +75,10 @@ export const SheetsAccessForm=()=>{
     }
     useEffect(()=>{
         requestGoogleSheets();
-    },[])
+    },[])// eslint-disable-line
     useEffect(()=>{
         requestPages();
-    },[selectedSheet])
+    },[selectedSheet])// eslint-disable-line
     return(
         <Grid container className="PageCenterWithoutMargin">
             <Grid item xs={10} md={5}>
@@ -110,10 +121,11 @@ export const SheetsAccessForm=()=>{
                     </FormControl>
                     </div>
                     <div className="flexRight">
-                        <Button variant="filled" sx={{backgroundColor:"#03dac5"}} onClick={addToDashboard}>Add</Button>
+                        <Button variant="filled" sx={{backgroundColor:"#03dac5"}} onClick={addToDashboard}>Add Sheet</Button>
                     </div>
                 </Paper>
             </Grid>
+            <Loader isVisible={loader} />
         </Grid >
     );
 }

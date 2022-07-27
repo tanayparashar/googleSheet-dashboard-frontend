@@ -2,6 +2,8 @@ import {useEffect,useState} from "react";
 import { Grid,Typography,Paper,Stack,Button,Divider } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../utility/loader";
+
 var client_id ="178477115618-is2tbrn0oidajb24ca3etv1ofo7vcrgb.apps.googleusercontent.com";
 var client_pass = "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";
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,9 +18,11 @@ export const Dashboard= ()=>{
     const [dashboardData,setDashboardData]=useState([]);
     const [refreshTokens,setRefreshTokens]=useState([]);
     const [dashboardSheets,setDashboardSheets]=useState([]);
+    const [loader, setLoader] = useState(false);
 
     const getDashboardSheets = async () => {
         try {
+        setLoader(true)
         const req = await fetch("http://localhost:3001/spreadsheets", {
             method: "GET",
             headers: {
@@ -28,11 +32,14 @@ export const Dashboard= ()=>{
         });
         const data = await req.json();
         setDashboardData(data.data);
+        setLoader(false)
         } catch (err) {
             console.log(err);
+            setLoader(false)
         }
     }; 
     const getRefreshTokens=async()=>{
+        setLoader(true)
         try{
             const req = await fetch("http://localhost:3001/subscriptions", {
                 method: "GET",
@@ -43,9 +50,11 @@ export const Dashboard= ()=>{
             });
             const data = await req.json();
             setRefreshTokens(data.data);
+            setLoader(false)
         } 
         catch (err) {
             console.log(err);
+            setLoader(false)
         }
     } 
     function getEmailRefreshToken(email)
@@ -62,6 +71,7 @@ export const Dashboard= ()=>{
     const genrateSheetsCredentials=async ()=>{
         if(dashboardData?.length>0 && refreshTokens.length>0)
         {
+            setLoader(true);
             var newArr=[];
             for(let itr=0;itr<dashboardData.length;itr++)
             {
@@ -102,6 +112,7 @@ export const Dashboard= ()=>{
                 var spreadsheetObj={columns:columns, speadsheetName:ele.spreasheetName, TabName:ele.TabName};
                 newArr.push(spreadsheetObj);
             }
+            setLoader(false)
             setDashboardSheets(newArr);
         }
     }
@@ -109,10 +120,10 @@ export const Dashboard= ()=>{
         getRefreshTokens();
         getDashboardSheets();
         genrateSheetsCredentials();
-    },[]);
+    },[]);// eslint-disable-line
     useEffect(()=>{
         genrateSheetsCredentials();
-    },[dashboardData,refreshTokens]);
+    },[dashboardData,refreshTokens]);// eslint-disable-line
     return(
         <div>
             <div className="DasboardTop">
@@ -138,6 +149,7 @@ export const Dashboard= ()=>{
                 )  :<Typography variant="h4">No spreadsheet added. Add them in subscriptions.</Typography>        
                 }
             </Grid>
+            <Loader isVisible={loader} />
         </div>
     );
 }
