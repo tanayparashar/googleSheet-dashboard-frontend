@@ -36,7 +36,7 @@ export const Login = () => {
 
         if (data.user) {
         localStorage.setItem("token", data.user);
-        navigate("/home");
+        navigate("/dashboard");
         } else {
         alert("Please check your username and password");
         }

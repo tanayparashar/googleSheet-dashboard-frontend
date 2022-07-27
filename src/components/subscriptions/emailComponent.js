@@ -28,7 +28,7 @@ export const EmailComponent = (props) => {
         .then((res) => {
             res.json().then((data) => {
                 console.log(data);
-                navigate(`/selectSheet/${data.access_token}`)
+                navigate(`/selectSheet/${email}/${data.access_token}`)
             });
         })
       .catch((err) => console.log(err));
