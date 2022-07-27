@@ -21,7 +21,7 @@ export const SheetsAccessForm=()=>{
         var obj={email:email, spreasheetName:sheetName, spreadsheetID:selectedSheet, TabName:selectedPage}; 
         setLoader(true);
         try {
-            const req = await fetch("http://localhost:3001/addSpreadsheets", {// eslint-disable-line
+            const req = await fetch("https://googlesheets-backend.herokuapp.com/addSpreadsheets", {// eslint-disable-line
             method: "POST",
             headers: {
             "Content-Type": "application/json",

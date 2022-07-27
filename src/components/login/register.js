@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 export const Register = () => {
-  const apiURL = "http://localhost:3001/";
+  const apiURL = "https://googlesheets-backend.herokuapp.com/";
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

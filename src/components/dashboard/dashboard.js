@@ -23,7 +23,7 @@ export const Dashboard= ()=>{
     const getDashboardSheets = async () => {
         try {
         setLoader(true)
-        const req = await fetch("http://localhost:3001/spreadsheets", {
+        const req = await fetch("https://googlesheets-backend.herokuapp.com/spreadsheets", {
             method: "GET",
             headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const Dashboard= ()=>{
     const getRefreshTokens=async()=>{
         setLoader(true)
         try{
-            const req = await fetch("http://localhost:3001/subscriptions", {
+            const req = await fetch("https://googlesheets-backend.herokuapp.com/subscriptions", {
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",

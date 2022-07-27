@@ -15,7 +15,7 @@ export const ListSubscriptions = () => {
   const getSubscriptions = async () => {
     setLoader(true);
     try {
-      const req = await fetch("http://localhost:3001/subscriptions", {
+      const req = await fetch("https://googlesheets-backend.herokuapp.com/subscriptions", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
