@@ -20,7 +20,7 @@ export const Suscription=()=>{
     return (
       <div >
          <div className="DasboardTop">
-            <Typography variant="h4" sx={{m:2}}>Dashboard</Typography>
+            <Typography variant="h4" sx={{m:2}}>Subscriptions</Typography>
             <div>
                 <Button sx={{mr:4,backgroundColor:"#0f60b6"}} variant="filled" onClick={()=>{navigate("/dashboard")}}>Go To Dashboard</Button>
             </div>
