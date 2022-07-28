@@ -1,3 +1,15 @@
+## deployed on netlify : https://famous-pixie-dd4890.netlify.app/
+## Demo video: https://www.youtube.com/watch?v=dbBpbiTk9wU (Watch at 1.5x speed)
+## backend repository : https://github.com/tanayparashar/google-sheets-dashboard-backend
+
+# Instructions to run on local machine
+ ### make sure you have backend server running, code repo link : https://github.com/tanayparashar/google-sheets-dashboard-backend
+ ### make sure you are on main branch in both backend and frontend repo
+ ### npm install
+ ### npm start to run both backend and frontend apps
+ 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
