@@ -31,7 +31,7 @@ export const GLogin = () => {
           client_id: client_id,
           client_secret: client_pass,
           grant_type: "authorization_code",
-          redirect_uri: "http://localhost:3000",
+          redirect_uri: "https://famous-pixie-dd4890.netlify.app/",
           code: res.code,
         }),
       })
