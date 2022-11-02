@@ -1,5 +1,8 @@
-## deployed on netlify : https://famous-pixie-dd4890.netlify.app/
+
 ## Demo video: https://www.youtube.com/watch?v=dbBpbiTk9wU (Watch at 1.5x speed)
+
+## deployed on netlify : https://famous-pixie-dd4890.netlify.app/
+
 ## backend repository : https://github.com/tanayparashar/google-sheets-dashboard-backend
 
 # Instructions to run on local machine
